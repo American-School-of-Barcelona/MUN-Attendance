@@ -1,21 +1,21 @@
-INSERT OR IGNORE INTO schools (school_code, school_name)
+INSERT INTO schools (school_code, school_name)
 SELECT DISTINCT school_code, school_name
 FROM staging_schools;
 
-INSERT OR IGNORE INTO committees (committee_code, committee_name, total_sessions)
+INSERT INTO committees (committee_code, committee_name, total_sessions)
 SELECT DISTINCT committee_code, committee_name, total_sessions
 FROM staging_committees;
 
-INSERT OR IGNORE INTO countries (country_code, country_name)
+INSERT INTO countries (country_code, country_name)
 SELECT country_code, MIN(country_name)
 FROM staging_countries
 GROUP BY country_code;
 
-INSERT OR IGNORE INTO participation_types (type_code, type_name, points)
+INSERT INTO participation_types (type_code, type_name, points)
 SELECT DISTINCT type_code, type_name, points
 FROM staging_participation_types;
 
-INSERT OR IGNORE INTO people (person_code, first_name, last_name, email, role, school_id)
+INSERT INTO people (person_code, first_name, last_name, email, role, school_id)
 SELECT
   p.person_code,
   p.first_name,
@@ -26,7 +26,7 @@ SELECT
 FROM staging_people p
 JOIN schools s ON s.school_code = p.school_code;
 
-INSERT OR IGNORE INTO delegate_assignments (person_id, committee_id, country_id)
+INSERT INTO delegate_assignments (person_id, committee_id, country_id)
 SELECT
   p.person_id,
   c.committee_id,
