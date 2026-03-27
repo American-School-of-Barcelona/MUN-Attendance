@@ -32,7 +32,7 @@ CREATE TABLE people (
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   email TEXT UNIQUE,
-  role TEXT NOT NULL CHECK (role IN ('delegate','director','executive')),
+  role TEXT NOT NULL CHECK (role IN ('delegate','director','executive','chair')),
   school_id INTEGER NOT NULL,
   FOREIGN KEY (school_id) REFERENCES schools(school_id)
 );
