@@ -24,7 +24,7 @@ S01-DEL-022,Casey,Thompson,casey.thompson.s01-del-022@schools01.com,delegate,S01
 S01-DEL-023,Casey,Lewis,casey.lewis.s01-del-023@schools01.com,delegate,S01,School 1
 S01-DEL-024,Mia,Jackson,mia.jackson.s01-del-024@schools01.com,delegate,S01,School 1
 S01-DEL-025,Morgan,Jones,morgan.jones.s01-del-025@schools01.com,delegate,S01,School 1
-S01-DIR-001,James,Gonzalez,james.gonzalez.s01-dir-001@schools01.com,delegate,S01,School 1
+S01-DIR-001,James,Gonzalez,james.gonzalez.s01-dir-001@schools01.com,director,S01,School 1
 S02-DEL-001,Matthew,Taylor,matthew.taylor.s02-del-001@schools02.com,delegate,S02,School 2
 S02-DEL-002,Morgan,Hill,morgan.hill.s02-del-002@schools02.com,delegate,S02,School 2
 S02-DEL-003,Elliot,Jackson,elliot.jackson.s02-del-003@schools02.com,delegate,S02,School 2
@@ -36,7 +36,7 @@ S02-DEL-008,Liam,King,liam.king.s02-del-008@schools02.com,delegate,S02,School 2
 S02-DEL-009,Morgan,White,morgan.white.s02-del-009@schools02.com,delegate,S02,School 2
 S02-DEL-010,Dylan,Nguyen,dylan.nguyen.s02-del-010@schools02.com,delegate,S02,School 2
 S02-DEL-011,Luke,Johnson,luke.johnson.s02-del-011@schools02.com,delegate,S02,School 2
-S02-DIR-001,Taylor,Garcia,taylor.garcia.s02-dir-001@schools02.com,delegate,S02,School 2
+S02-DIR-001,Taylor,Garcia,taylor.garcia.s02-dir-001@schools02.com,director,S02,School 2
 S03-DEL-001,Mia,Flores,mia.flores.s03-del-001@schools03.com,delegate,S03,School 3
 S03-DEL-002,Luke,Young,luke.young.s03-del-002@schools03.com,delegate,S03,School 3
 S03-DEL-003,Daniel,Smith,daniel.smith.s03-del-003@schools03.com,delegate,S03,School 3
@@ -84,7 +84,7 @@ S03-DEL-044,Jamie,Perez,jamie.perez.s03-del-044@schools03.com,delegate,S03,Schoo
 S03-DEL-045,Morgan,Lewis,morgan.lewis.s03-del-045@schools03.com,delegate,S03,School 3
 S03-DEL-046,Emma,Gonzalez,emma.gonzalez.s03-del-046@schools03.com,delegate,S03,School 3
 S03-DEL-047,Michael,Lee,michael.lee.s03-del-047@schools03.com,delegate,S03,School 3
-S03-DIR-001,Chris,Perez,chris.perez.s03-dir-001@schools03.com,delegate,S03,School 3
+S03-DIR-001,Chris,Perez,chris.perez.s03-dir-001@schools03.com,director,S03,School 3
 S04-DEL-001,James,Wilson,james.wilson.s04-del-001@schools04.com,delegate,S04,School 4
 S04-DEL-002,Elliot,Lopez,elliot.lopez.s04-del-002@schools04.com,delegate,S04,School 4
 S04-DEL-003,David,Lewis,david.lewis.s04-del-003@schools04.com,delegate,S04,School 4
@@ -114,14 +114,14 @@ S04-DEL-026,Lucas,Scott,lucas.scott.s04-del-026@schools04.com,delegate,S04,Schoo
 S04-DEL-027,Olivia,White,olivia.white.s04-del-027@schools04.com,delegate,S04,School 4
 S04-DEL-028,Jack,Jackson,jack.jackson.s04-del-028@schools04.com,delegate,S04,School 4
 S04-DEL-029,Olivia,Gonzalez,olivia.gonzalez.s04-del-029@schools04.com,delegate,S04,School 4
-S04-DIR-001,Ryan,Thompson,ryan.thompson.s04-dir-001@schools04.com,delegate,S04,School 4
+S04-DIR-001,Ryan,Thompson,ryan.thompson.s04-dir-001@schools04.com,director,S04,School 4
 S05-DEL-001,Alex,White,alex.white.s05-del-001@schools05.com,delegate,S05,School 5
 S05-DEL-002,Mia,Walker,mia.walker.s05-del-002@schools05.com,delegate,S05,School 5
 S05-DEL-003,Chloe,Miller,chloe.miller.s05-del-003@schools05.com,delegate,S05,School 5
 S05-DEL-004,Leo,Harris,leo.harris.s05-del-004@schools05.com,delegate,S05,School 5
 S05-DEL-005,David,Hernandez,david.hernandez.s05-del-005@schools05.com,delegate,S05,School 5
 S05-DEL-006,Sophia,Harris,sophia.harris.s05-del-006@schools05.com,delegate,S05,School 5
-S05-DIR-001,Mason,Garcia,mason.garcia.s05-dir-001@schools05.com,delegate,S05,School 5
+S05-DIR-001,Mason,Garcia,mason.garcia.s05-dir-001@schools05.com,director,S05,School 5
 S06-DEL-001,Matthew,King,matthew.king.s06-del-001@schools06.com,delegate,S06,School 6
 S06-DEL-002,Sam,Perez,sam.perez.s06-del-002@schools06.com,delegate,S06,School 6
 S06-DEL-003,Noah,Moore,noah.moore.s06-del-003@schools06.com,delegate,S06,School 6
@@ -183,7 +183,7 @@ S06-DEL-058,Luke,Walker,luke.walker.s06-del-058@schools06.com,delegate,S06,Schoo
 S06-DEL-059,Liam,Sanchez,liam.sanchez.s06-del-059@schools06.com,delegate,S06,School 6
 S06-DEL-060,Ethan,Rodriguez,ethan.rodriguez.s06-del-060@schools06.com,delegate,S06,School 6
 S06-DEL-061,Avery,Martin,avery.martin.s06-del-061@schools06.com,delegate,S06,School 6
-S06-DIR-001,Jack,Moore,jack.moore.s06-dir-001@schools06.com,delegate,S06,School 6
+S06-DIR-001,Jack,Moore,jack.moore.s06-dir-001@schools06.com,director,S06,School 6
 S07-DEL-001,Dylan,Anderson,dylan.anderson.s07-del-001@schools07.com,delegate,S07,School 7
 S07-DEL-002,Luke,Young,luke.young.s07-del-002@schools07.com,delegate,S07,School 7
 S07-DEL-003,Leo,Davis,leo.davis.s07-del-003@schools07.com,delegate,S07,School 7
@@ -198,7 +198,7 @@ S07-DEL-011,Jordan,Miller,jordan.miller.s07-del-011@schools07.com,delegate,S07,S
 S07-DEL-012,Ben,Clark,ben.clark.s07-del-012@schools07.com,delegate,S07,School 7
 S07-DEL-013,Andrew,Martin,andrew.martin.s07-del-013@schools07.com,delegate,S07,School 7
 S07-DEL-014,Noah,Lopez,noah.lopez.s07-del-014@schools07.com,delegate,S07,School 7
-S07-DIR-001,Casey,Harris,casey.harris.s07-dir-001@schools07.com,delegate,S07,School 7
+S07-DIR-001,Casey,Harris,casey.harris.s07-dir-001@schools07.com,director,S07,School 7
 S08-DEL-001,Sophia,Taylor,sophia.taylor.s08-del-001@schools08.com,delegate,S08,School 8
 S08-DEL-002,Noah,Martin,noah.martin.s08-del-002@schools08.com,delegate,S08,School 8
 S08-DEL-003,Ava,Hill,ava.hill.s08-del-003@schools08.com,delegate,S08,School 8
@@ -224,7 +224,7 @@ S08-DEL-022,Elliot,Thomas,elliot.thomas.s08-del-022@schools08.com,delegate,S08,S
 S08-DEL-023,Chris,Garcia,chris.garcia.s08-del-023@schools08.com,delegate,S08,School 8
 S08-DEL-024,Liam,Walker,liam.walker.s08-del-024@schools08.com,delegate,S08,School 8
 S08-DEL-025,Casey,Sanchez,casey.sanchez.s08-del-025@schools08.com,delegate,S08,School 8
-S08-DIR-001,Isabella,Taylor,isabella.taylor.s08-dir-001@schools08.com,delegate,S08,School 8
+S08-DIR-001,Isabella,Taylor,isabella.taylor.s08-dir-001@schools08.com,director,S08,School 8
 S09-DEL-001,Morgan,Gonzalez,morgan.gonzalez.s09-del-001@schools09.com,delegate,S09,School 9
 S09-DEL-002,Ben,Sanchez,ben.sanchez.s09-del-002@schools09.com,delegate,S09,School 9
 S09-DEL-003,Amelia,Robinson,amelia.robinson.s09-del-003@schools09.com,delegate,S09,School 9
@@ -240,7 +240,7 @@ S09-DEL-012,Olivia,Thompson,olivia.thompson.s09-del-012@schools09.com,delegate,S
 S09-DEL-013,Dylan,Ramirez,dylan.ramirez.s09-del-013@schools09.com,delegate,S09,School 9
 S09-DEL-014,Daniel,Smith,daniel.smith.s09-del-014@schools09.com,delegate,S09,School 9
 S09-DEL-015,Grace,Lee,grace.lee.s09-del-015@schools09.com,delegate,S09,School 9
-S09-DIR-001,Chris,Williams,chris.williams.s09-dir-001@schools09.com,delegate,S09,School 9
+S09-DIR-001,Chris,Williams,chris.williams.s09-dir-001@schools09.com,director,S09,School 9
 S10-DEL-001,Andrew,White,andrew.white.s10-del-001@schools10.com,delegate,S10,School 10
 S10-DEL-002,Casey,Allen,casey.allen.s10-del-002@schools10.com,delegate,S10,School 10
 S10-DEL-003,Morgan,Brown,morgan.brown.s10-del-003@schools10.com,delegate,S10,School 10
@@ -256,9 +256,9 @@ S10-DEL-012,Sam,Torres,sam.torres.s10-del-012@schools10.com,delegate,S10,School 
 S10-DEL-013,Noah,Walker,noah.walker.s10-del-013@schools10.com,delegate,S10,School 10
 S10-DEL-014,Dylan,Nguyen,dylan.nguyen.s10-del-014@schools10.com,delegate,S10,School 10
 S10-DEL-015,Jack,Miller,jack.miller.s10-del-015@schools10.com,delegate,S10,School 10
-S10-DIR-001,Quinn,Lewis,quinn.lewis.s10-dir-001@schools10.com,delegate,S10,School 10
-S11_DEL-001,Elliot,Torres,elliot.torres.s11_del-001@schools11.com,delegate,S11,School 11
-S11-DIR-001,Chris,Anderson,chris.anderson.s11-dir-001@schools11.com,delegate,S11,School 11
+S10-DIR-001,Quinn,Lewis,quinn.lewis.s10-dir-001@schools10.com,director,S10,School 10
+S11-DEL-001,Elliot,Torres,elliot.torres.s11-del-001@schools11.com,delegate,S11,School 11
+S11-DIR-001,Chris,Anderson,chris.anderson.s11-dir-001@schools11.com,director,S11,School 11
 S12-DEL-001,Jack,Jones,jack.jones.s12-del-001@schools12.com,delegate,S12,School 12
 S12-DEL-002,Grace,Perez,grace.perez.s12-del-002@schools12.com,delegate,S12,School 12
 S12-DEL-003,Riley,Lewis,riley.lewis.s12-del-003@schools12.com,delegate,S12,School 12
@@ -279,7 +279,7 @@ S12-DEL-017,Chloe,Taylor,chloe.taylor.s12-del-017@schools12.com,delegate,S12,Sch
 S12-DEL-018,Nathan,Scott,nathan.scott.s12-del-018@schools12.com,delegate,S12,School 12
 S12-DEL-019,Alex,Martin,alex.martin.s12-del-019@schools12.com,delegate,S12,School 12
 S12-DEL-020,Chloe,Hernandez,chloe.hernandez.s12-del-020@schools12.com,delegate,S12,School 12
-S12-DIR-001,Casey,Clark,casey.clark.s12-dir-001@schools12.com,delegate,S12,School 12
+S12-DIR-001,Casey,Clark,casey.clark.s12-dir-001@schools12.com,director,S12,School 12
 S13-DEL-001,Jack,Lee,jack.lee.s13-del-001@schools13.com,delegate,S13,School 13
 S13-DEL-002,Noah,Thompson,noah.thompson.s13-del-002@schools13.com,delegate,S13,School 13
 S13-DEL-003,Nathan,Anderson,nathan.anderson.s13-del-003@schools13.com,delegate,S13,School 13
@@ -290,7 +290,7 @@ S13-DEL-007,Daniel,Hill,daniel.hill.s13-del-007@schools13.com,delegate,S13,Schoo
 S13-DEL-008,Ella,King,ella.king.s13-del-008@schools13.com,delegate,S13,School 13
 S13-DEL-009,Chris,Brown,chris.brown.s13-del-009@schools13.com,delegate,S13,School 13
 S13-DEL-010,Alex,Jones,alex.jones.s13-del-010@schools13.com,delegate,S13,School 13
-S13-DIR-001,Dylan,Wilson,dylan.wilson.s13-dir-001@schools13.com,delegate,S13,School 13
+S13-DIR-001,Dylan,Wilson,dylan.wilson.s13-dir-001@schools13.com,director,S13,School 13
 S14-DEL-001,Mason,Miller,mason.miller.s14-del-001@schools14.com,delegate,S14,School 14
 S14-DEL-002,Chris,Allen,chris.allen.s14-del-002@schools14.com,delegate,S14,School 14
 S14-DEL-003,Sam,Hernandez,sam.hernandez.s14-del-003@schools14.com,delegate,S14,School 14
@@ -301,7 +301,7 @@ S14-DEL-007,Grace,Martinez,grace.martinez.s14-del-007@schools14.com,delegate,S14
 S14-DEL-008,Alex,Sanchez,alex.sanchez.s14-del-008@schools14.com,delegate,S14,School 14
 S14-DEL-009,Andrew,Moore,andrew.moore.s14-del-009@schools14.com,delegate,S14,School 14
 S14-DEL-010,David,Brown,david.brown.s14-del-010@schools14.com,delegate,S14,School 14
-S14-DIR-001,Luke,Perez,luke.perez.s14-dir-001@schools14.com,delegate,S14,School 14
+S14-DIR-001,Luke,Perez,luke.perez.s14-dir-001@schools14.com,director,S14,School 14
 S15-DEL-001,Sophia,Ramirez,sophia.ramirez.s15-del-001@schools15.com,delegate,S15,School 15
 S15-DEL-002,Jordan,Harris,jordan.harris.s15-del-002@schools15.com,delegate,S15,School 15
 S15-DEL-003,Quinn,Rodriguez,quinn.rodriguez.s15-del-003@schools15.com,delegate,S15,School 15
@@ -321,7 +321,7 @@ S15-DEL-016,Amelia,Moore,amelia.moore.s15-del-016@schools15.com,delegate,S15,Sch
 S15-DEL-017,Olivia,Gonzalez,olivia.gonzalez.s15-del-017@schools15.com,delegate,S15,School 15
 S15-DEL-018,Casey,Jackson,casey.jackson.s15-del-018@schools15.com,delegate,S15,School 15
 S15-DEL-019,Elliot,Taylor,elliot.taylor.s15-del-019@schools15.com,delegate,S15,School 15
-S15-DIR-001,Sophia,Moore,sophia.moore.s15-dir-001@schools15.com,delegate,S15,School 15
+S15-DIR-001,Sophia,Moore,sophia.moore.s15-dir-001@schools15.com,director,S15,School 15
 S16-DEL-001,Alex,Garcia,alex.garcia.s16-del-001@schools16.com,delegate,S16,School 16
 S16-DEL-002,Taylor,Thompson,taylor.thompson.s16-del-002@schools16.com,delegate,S16,School 16
 S16-DEL-003,Riley,Lee,riley.lee.s16-del-003@schools16.com,delegate,S16,School 16
@@ -330,7 +330,7 @@ S16-DEL-005,Chris,Rodriguez,chris.rodriguez.s16-del-005@schools16.com,delegate,S
 S16-DEL-006,Lucas,White,lucas.white.s16-del-006@schools16.com,delegate,S16,School 16
 S16-DEL-007,Riley,Wilson,riley.wilson.s16-del-007@schools16.com,delegate,S16,School 16
 S16-DEL-008,Elliot,Lewis,elliot.lewis.s16-del-008@schools16.com,delegate,S16,School 16
-S16-DIR-001,Ella,Thomas,ella.thomas.s16-dir-001@schools16.com,delegate,S16,School 16
+S16-DIR-001,Ella,Thomas,ella.thomas.s16-dir-001@schools16.com,director,S16,School 16
 S17-DEL-001,Matthew,Perez,matthew.perez.s17-del-001@schools17.com,delegate,S17,School 17
 S17-DEL-002,Noah,Young,noah.young.s17-del-002@schools17.com,delegate,S17,School 17
 S17-DEL-003,Leo,King,leo.king.s17-del-003@schools17.com,delegate,S17,School 17
@@ -351,11 +351,11 @@ S17-DEL-017,Chris,Robinson,chris.robinson.s17-del-017@schools17.com,delegate,S17
 S17-DEL-018,Avery,Hernandez,avery.hernandez.s17-del-018@schools17.com,delegate,S17,School 17
 S17-DEL-019,Jack,Jackson,jack.jackson.s17-del-019@schools17.com,delegate,S17,School 17
 S17-DEL-020,Amelia,Flores,amelia.flores.s17-del-020@schools17.com,delegate,S17,School 17
-S17-DIR-001,Olivia,Jackson,olivia.jackson.s17-dir-001@schools17.com,delegate,S17,School 17
+S17-DIR-001,Olivia,Jackson,olivia.jackson.s17-dir-001@schools17.com,director,S17,School 17
 S18-DEL-001,David,Smith,david.smith.s18-del-001@schools18.com,delegate,S18,School 18
 S18-DEL-002,Jordan,Lee,jordan.lee.s18-del-002@schools18.com,delegate,S18,School 18
 S18-DEL-003,Quinn,Smith,quinn.smith.s18-del-003@schools18.com,delegate,S18,School 18
-S18-DIR-001,Ava,Williams,ava.williams.s18-dir-001@schools18.com,delegate,S18,School 18
+S18-DIR-001,Ava,Williams,ava.williams.s18-dir-001@schools18.com,director,S18,School 18
 S19-DEL-001,Lucas,Wright,lucas.wright.s19-del-001@schools19.com,delegate,S19,School 19
 S19-DEL-002,Quinn,Robinson,quinn.robinson.s19-del-002@schools19.com,delegate,S19,School 19
 S19-DEL-003,Jordan,Sanchez,jordan.sanchez.s19-del-003@schools19.com,delegate,S19,School 19
@@ -365,7 +365,7 @@ S19-DEL-006,Alex,Sanchez,alex.sanchez.s19-del-006@schools19.com,delegate,S19,Sch
 S19-DEL-007,Nathan,Young,nathan.young.s19-del-007@schools19.com,delegate,S19,School 19
 S19-DEL-008,Ella,Flores,ella.flores.s19-del-008@schools19.com,delegate,S19,School 19
 S19-DEL-009,Jamie,Harris,jamie.harris.s19-del-009@schools19.com,delegate,S19,School 19
-S19-DIR-001,Mia,Hernandez,mia.hernandez.s19-dir-001@schools19.com,delegate,S19,School 19
+S19-DIR-001,Mia,Hernandez,mia.hernandez.s19-dir-001@schools19.com,director,S19,School 19
 S20-DEL-001,Casey,Thompson,casey.thompson.s20-del-001@schools20.com,delegate,S20,School 20
 S20-DEL-002,Dylan,Thomas,dylan.thomas.s20-del-002@schools20.com,delegate,S20,School 20
 S20-DEL-003,Luke,Garcia,luke.garcia.s20-del-003@schools20.com,delegate,S20,School 20
@@ -392,8 +392,8 @@ S06-CHA-012,Luke,Robinson,luke.robinson.s06-cha-012@schools06.com,chair,S06,Scho
 S06-CHA-013,Morgan,Ramirez,morgan.ramirez.s06-cha-013@schools06.com,chair,S06,School 6
 S06-CHA-014,Matthew,Wilson,matthew.wilson.s06-cha-014@schools06.com,chair,S06,School 6
 S06-CHA-015,Noah,Rodriguez,noah.rodriguez.s06-cha-015@schools06.com,chair,S06,School 6
-S06-EXE-001,Morgan,White,morgan.white.s06-exe-001@schools06.com,Executive,S06,School 6
-S06-EXE-002,Luke,Williams,luke.williams.s06-exe-002@schools06.com,Executive,S06,School 6
-S06-EXE-003,Lucas,Jones,lucas.jones.s06-exe-003@schools06.com,Executive,S06,School 6
-S06-EXE-004,Ella,Ramirez,ella.ramirez.s06-exe-004@schools06.com,Executive,S06,School 6
-S06-EXE-005,Matthew,Harris,matthew.harris.s06-exe-005@schools06.com,Executive,S06,School 6
+S06-EXE-001,Morgan,White,morgan.white.s06-exe-001@schools06.com,executive,S06,School 6
+S06-EXE-002,Luke,Williams,luke.williams.s06-exe-002@schools06.com,executive,S06,School 6
+S06-EXE-003,Lucas,Jones,lucas.jones.s06-exe-003@schools06.com,executive,S06,School 6
+S06-EXE-004,Ella,Ramirez,ella.ramirez.s06-exe-004@schools06.com,executive,S06,School 6
+S06-EXE-005,Matthew,Harris,matthew.harris.s06-exe-005@schools06.com,executive,S06,School 6

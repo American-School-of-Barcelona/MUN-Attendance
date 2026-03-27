@@ -1,3 +1,11 @@
+-- Remove header rows accidentally imported into staging tables
+DELETE FROM staging_schools WHERE school_code = 'school_code';
+DELETE FROM staging_committees WHERE committee_code = 'committee_code';
+DELETE FROM staging_countries WHERE country_code = 'country_code';
+DELETE FROM staging_participation_types WHERE type_code = 'type_code';
+DELETE FROM staging_people WHERE person_code = 'person_code';
+DELETE FROM staging_delegate_assignments WHERE person_code = 'person_code';
+
 INSERT INTO schools (school_code, school_name)
 SELECT DISTINCT school_code, school_name
 FROM staging_schools;
