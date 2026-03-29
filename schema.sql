@@ -61,7 +61,7 @@ CREATE TABLE attendance (
   person_id INTEGER NOT NULL,
   committee_id INTEGER NOT NULL,
   session_number INTEGER NOT NULL CHECK (session_number >= 1),
-  is_present INTEGER NOT NULL CHECK (is_present IN (0, 1)),
+  status TEXT NOT NULL CHECK (status IN ('absent','present','present_voting')),
   UNIQUE (person_id, committee_id, session_number),
   FOREIGN KEY (person_id) REFERENCES people(person_id),
   FOREIGN KEY (committee_id) REFERENCES committees(committee_id)
