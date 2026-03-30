@@ -1,0 +1,605 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Participation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6fb;
+      color: #1f2937;
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .title-block p {
+      margin: 8px 0 0;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    .button,
+    button {
+      text-decoration: none;
+      background: #2563eb;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 0.98rem;
+    }
+
+    .button.secondary,
+    button.secondary {
+      background: #374151;
+    }
+
+    .button.outline,
+    button.outline {
+      background: white;
+      color: #2563eb;
+      border: 2px solid #2563eb;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .committee-bar {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .committee-selector-card,
+    .insert-shell {
+      background: white;
+      border: 1px solid #dbe4f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .insert-shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 14px;
+      align-items: end;
+    }
+
+    .committee-bar label,
+    .insert-shell label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+
+    .committee-bar select,
+    .insert-shell select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #c7d2e0;
+      font-size: 1rem;
+      box-sizing: border-box;
+      background: white;
+    }
+
+    .committee-info {
+      color: #4b5563;
+      line-height: 1.5;
+      font-size: 0.97rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 580px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid #dbe4f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+    }
+
+    .panel-subtitle {
+      margin: -4px 0 14px;
+      color: #4b5563;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* .insert-card removed */
+
+    .insert-actions {
+      display: flex;
+      align-items: end;
+      justify-content: flex-end;
+    }
+
+    .insert-actions .button,
+    .insert-actions button {
+      width: 100%;
+      min-width: 150px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .compact-panel {
+      padding-top: 14px;
+    }
+
+    .compact-panel h2 {
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #c7d2e0;
+      padding: 12px 10px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #6f98dd;
+      color: #111827;
+      font-size: 1rem;
+    }
+
+    td {
+      background: #eef4ff;
+    }
+
+    .recent-table th:nth-child(1),
+    .recent-table td:nth-child(1) {
+      width: 48%;
+    }
+
+    .recent-table th:nth-child(2),
+    .recent-table td:nth-child(2) {
+      width: 34%;
+    }
+
+    .recent-table th:nth-child(3),
+    .recent-table td:nth-child(3) {
+      width: 18%;
+      text-align: center;
+    }
+
+    .priority-table th:nth-child(1),
+    .priority-table td:nth-child(1) {
+      width: 76%;
+    }
+
+    .priority-table th:nth-child(2),
+    .priority-table td:nth-child(2) {
+      width: 24%;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .delete-button {
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      border-radius: 50%;
+      background: #ef4444;
+      color: white;
+      font-weight: 700;
+      line-height: 1;
+      font-size: 0.95rem;
+    }
+
+    .delete-button:hover {
+      background: #dc2626;
+    }
+
+    .points-pill {
+      display: inline-block;
+      min-width: 46px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-align: center;
+      border: 2px solid transparent;
+    }
+
+    .points-zero {
+      background: #fca5a5;
+      color: #7f1d1d;
+      border-color: #ef4444;
+    }
+
+    .points-low {
+      background: #fde68a;
+      color: #78350f;
+      border-color: #f59e0b;
+    }
+
+    .points-mid {
+      background: #d9f99d;
+      color: #365314;
+      border-color: #84cc16;
+    }
+
+    .points-high {
+      background: #86efac;
+      color: #14532d;
+      border-color: #22c55e;
+    }
+
+    .message {
+      margin-top: 12px;
+      font-weight: 600;
+      min-height: 24px;
+    }
+
+    .message.error {
+      color: #b91c1c;
+    }
+
+    .message.success {
+      color: #166534;
+    }
+
+    .empty-note {
+      color: #4b5563;
+      font-style: italic;
+      padding: 8px 0 0;
+    }
+    
+    .hidden {
+      display: none;
+    }
+
+    .recent-row {
+      cursor: pointer;
+    }
+
+    @media (max-width: 1100px) {
+      .committee-bar,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .insert-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .insert-actions {
+        justify-content: stretch;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .committee-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .title-block h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="title-block">
+        <h1>Participation</h1>
+        <p>
+          Choose a committee to record participation, review the most recent entries,
+          and monitor call priority based on the lowest total points.
+        </p>
+      </div>
+
+      <div class="top-links">
+        <a class="button outline" href="{{ url_for('index') }}">Home</a>
+        {% if authenticated %}
+          <a class="button secondary" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="button secondary" href="{{ url_for('login') }}">Chair Login</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="committee-bar">
+      <div class="committee-selector-card">
+        <label for="committee-select">Choose Committee</label>
+        <select id="committee-select"></select>
+      </div>
+
+      <div class="insert-shell">
+        <div>
+          <label for="delegation-select">Delegation</label>
+          <select id="delegation-select"></select>
+        </div>
+
+        <div>
+          <label for="type-select">Participation Type</label>
+          <select id="type-select"></select>
+        </div>
+
+        <div class="insert-actions">
+          {% if authenticated %}
+            <button id="add-button" type="button">Add</button>
+          {% else %}
+            <a class="button secondary" href="{{ url_for('login') }}">Login to Add</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <section class="panel compact-panel">
+        <h2>10 Recent Speakers</h2>
+        <div id="message" class="message"></div>
+        <table class="recent-table">
+          <thead>
+            <tr>
+              <th>Delegation</th>
+              <th>Participation Type</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody id="recent-body"></tbody>
+        </table>
+        <div id="recent-empty" class="empty-note hidden">No participation has been recorded for this committee yet.</div>
+      </section>
+
+      <section class="panel">
+        <h2>Call Priority</h2>
+        <p class="panel-subtitle">Delegations with the lowest total points appear first.</p>
+        <table class="priority-table">
+          <thead>
+            <tr>
+              <th>Delegation</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody id="priority-body"></tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const committeeSelect = document.getElementById('committee-select');
+    const delegationSelect = document.getElementById('delegation-select');
+    const typeSelect = document.getElementById('type-select');
+    const addButton = document.getElementById('add-button');
+    const recentBody = document.getElementById('recent-body');
+    const priorityBody = document.getElementById('priority-body');
+    const recentEmpty = document.getElementById('recent-empty');
+    const messageBox = document.getElementById('message');
+
+    let committees = [];
+    let currentData = {
+      delegations: [],
+      participation_types: [],
+      recent_participation: [],
+      call_priority: [],
+    };
+
+    function setMessage(text, kind = '') {
+      if (!messageBox) {
+        return;
+      }
+      messageBox.textContent = text;
+      messageBox.className = 'message';
+      if (kind) {
+        messageBox.classList.add(kind);
+      }
+    }
+
+    async function loadCommittees() {
+      const response = await fetch('/api/committees');
+      committees = await response.json();
+
+      committeeSelect.innerHTML = '';
+      committees.forEach((committee) => {
+        const option = document.createElement('option');
+        option.value = committee.committee_code;
+        option.textContent = committee.committee_name;
+        committeeSelect.appendChild(option);
+      });
+
+      await loadParticipationData();
+    }
+
+    function renderDelegations() {
+      delegationSelect.innerHTML = '';
+      currentData.delegations.forEach((delegation) => {
+        const option = document.createElement('option');
+        option.value = delegation.person_id;
+        option.textContent = delegation.delegation;
+        delegationSelect.appendChild(option);
+      });
+    }
+
+    function renderParticipationTypes() {
+      typeSelect.innerHTML = '';
+      currentData.participation_types.forEach((type) => {
+        const option = document.createElement('option');
+        option.value = type.type_id;
+        option.textContent = `${type.type_name} (${type.points})`;
+        typeSelect.appendChild(option);
+      });
+    }
+
+    function renderRecent() {
+      recentBody.innerHTML = '';
+
+      if (!currentData.recent_participation.length) {
+        recentEmpty.classList.remove('hidden');
+        return;
+      }
+
+      recentEmpty.classList.add('hidden');
+
+      currentData.recent_participation.forEach((entry) => {
+        const tr = document.createElement('tr');
+        tr.className = 'recent-row';
+        tr.innerHTML = `
+          <td>${entry.delegation}</td>
+          <td>${entry.type_name}</td>
+          <td>
+            {% if authenticated %}
+              <button type="button" class="delete-button" data-id="${entry.participation_id}" aria-label="Delete participation">×</button>
+            {% else %}
+              <span style="color:#6b7280;">-</span>
+            {% endif %}
+          </td>
+        `;
+        recentBody.appendChild(tr);
+      });
+
+      document.querySelectorAll('.delete-button').forEach((button) => {
+        button.addEventListener('click', async () => {
+          await deleteParticipation(button.dataset.id);
+        });
+      });
+    }
+
+    function getPointsClass(points) {
+      if (points === 0) {
+        return 'points-zero';
+      }
+      if (points <= 4) {
+        return 'points-low';
+      }
+      if (points <= 9) {
+        return 'points-mid';
+      }
+      return 'points-high';
+    }
+
+    function renderPriority() {
+      priorityBody.innerHTML = '';
+      currentData.call_priority.forEach((entry) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${entry.delegation}</td>
+          <td><span class="points-pill ${getPointsClass(entry.points)}">${entry.points}</span></td>
+        `;
+        priorityBody.appendChild(tr);
+      });
+    }
+
+    async function loadParticipationData() {
+      const committeeCode = committeeSelect.value;
+      setMessage('');
+
+      const response = await fetch(`/api/participation-data?committee_code=${encodeURIComponent(committeeCode)}`);
+      currentData = await response.json();
+
+      renderDelegations();
+      renderParticipationTypes();
+      renderRecent();
+      renderPriority();
+    }
+
+    async function addParticipation() {
+      const payload = {
+        committee_code: committeeSelect.value,
+        person_id: Number(delegationSelect.value),
+        type_id: Number(typeSelect.value),
+      };
+
+      const response = await fetch('/api/add-participation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.error || 'Failed to add participation.', 'error');
+        return;
+      }
+
+      setMessage('Participation added successfully.', 'success');
+      await loadParticipationData();
+    }
+
+    async function deleteParticipation(participationId) {
+      const response = await fetch('/api/delete-participation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          participation_id: Number(participationId),
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.error || 'Failed to delete participation.', 'error');
+        return;
+      }
+
+      setMessage('Participation removed successfully.', 'success');
+      await loadParticipationData();
+    }
+
+    committeeSelect.addEventListener('change', loadParticipationData);
+
+    if (addButton) {
+      addButton.addEventListener('click', addParticipation);
+    }
+
+    loadCommittees();
+  </script>
+</body>
+</html>
