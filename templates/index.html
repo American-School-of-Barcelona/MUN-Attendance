@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUN Attendance System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6fb;
+      color: #1f2937;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+
+    .title-block p {
+      margin: 8px 0 0;
+      color: #4b5563;
+      max-width: 700px;
+      line-height: 1.5;
+    }
+
+    .auth-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      text-decoration: none;
+      background: #2563eb;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .button.secondary {
+      background: #374151;
+    }
+
+    .button.outline {
+      background: white;
+      color: #2563eb;
+      border: 2px solid #2563eb;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .nav-card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid #dbe4f0;
+    }
+
+    .nav-card h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .nav-card p {
+      margin: 0 0 18px;
+      line-height: 1.5;
+      color: #4b5563;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 1.6rem;
+    }
+
+    .schedule-day {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid #dbe4f0;
+    }
+
+    .schedule-day h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 1.25rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #c7d2e0;
+      padding: 12px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #6f98dd;
+      color: #111827;
+      font-size: 1rem;
+    }
+
+    td {
+      background: #d6e2f6;
+      line-height: 1.45;
+    }
+
+    .note {
+      margin-top: 20px;
+      color: #4b5563;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 700px) {
+      .title-block h1 {
+        font-size: 1.8rem;
+      }
+
+      th,
+      td {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="title-block">
+        <h1>MUN Conference Attendance and Participation System</h1>
+        <p>
+          This website allows users to view committee attendance and participation data throughout the conference.
+          Editing features are restricted to authorised chairs and executives.
+        </p>
+      </div>
+
+      <div class="auth-links">
+        {% if authenticated %}
+          <a class="button secondary" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="button secondary" href="{{ url_for('login') }}">Chair Login</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="nav-grid">
+      <div class="nav-card">
+        <h2>Attendance</h2>
+        <p>
+          View committee attendance records and, if authenticated, update attendance by session.
+        </p>
+        <a class="button" href="{{ url_for('attendance_page') }}">Open Attendance</a>
+      </div>
+
+      <div class="nav-card">
+        <h2>Participation</h2>
+        <p>
+          View recent participation, call priority, and, if authenticated, record participation entries.
+        </p>
+        <a class="button" href="{{ url_for('participation_page') }}">Open Participation</a>
+      </div>
+
+      <div class="nav-card">
+        <h2>Access</h2>
+        <p>
+          All visitors can view information in read-only mode. Chairs and executives can log in to access editing tools.
+        </p>
+        {% if authenticated %}
+          <a class="button outline" href="{{ url_for('logout') }}">You are Logged In</a>
+        {% else %}
+          <a class="button outline" href="{{ url_for('login') }}">Login to Edit</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <h2 class="section-title">Conference Schedule</h2>
+
+    <div class="schedule-day">
+      <h3>Day 1</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 24%;">Time</th>
+            <th>What is Happening</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>9.00 - 10.00</td><td>Delegate registration at Paranimf</td></tr>
+          <tr><td>10.00 - 11.15</td><td>Opening Ceremony</td></tr>
+          <tr><td>11.15 - 12.00</td><td>Bus transfer to conference venue</td></tr>
+          <tr><td>12.00 - 13.00</td><td>Opening speeches</td></tr>
+          <tr><td>13.00 - 14.30</td><td>Lunch period for all delegates</td></tr>
+          <tr><td>14.30 - 15.45</td><td>Committees lobbying TOPIC 1 (SC TOPIC 1 &amp; 2)</td></tr>
+          <tr><td>16.00</td><td>Approval Panel opens</td></tr>
+          <tr><td>15.45 - 17.00</td><td>Committees lobbying TOPIC 2</td></tr>
+          <tr><td>15.45 - 16.30</td><td>SC ONLY Team Building</td></tr>
+          <tr><td>16.30 - 16.50</td><td>SC ONLY In-committee break</td></tr>
+          <tr><td>16.50 - 18.00</td><td>SC ONLY Begin debate topic 1</td></tr>
+          <tr><td>17.05 - 17.25</td><td>In-committee break</td></tr>
+          <tr><td>17.25 - 18.00</td><td>Team Building</td></tr>
+          <tr><td>18.00</td><td>Approval Panel closes, end of Day 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schedule-day">
+      <h3>Day 2</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 24%;">Time</th>
+            <th>What is Happening</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>9.00 - 11.10</td><td>Begin debate topic 1 (staggered break times)</td></tr>
+          <tr><td>10.30 - 10.50</td><td>Break for GA and HRC</td></tr>
+          <tr><td>10.50 - 11.10</td><td>Break for SC, UNODC, and DISC</td></tr>
+          <tr><td>11.10 - 14.00</td><td>Finish debate topic 1</td></tr>
+          <tr><td>13.00 - 14.00</td><td>SC ONLY Begin debate topic 2</td></tr>
+          <tr><td>14.00 - 15.30</td><td>Lunch period for all delegates</td></tr>
+          <tr><td>15.30 - 17.30</td><td>Begin debate topic 2</td></tr>
+          <tr><td>20.00 - 22.30</td><td>Social event</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schedule-day">
+      <h3>Day 3</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 24%;">Time</th>
+            <th>What is Happening</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>9.00 - 11.10</td><td>Debate topic 2 (staggered break times)</td></tr>
+          <tr><td>10.30 - 10.50</td><td>Break for SC, UNODC, and DISC</td></tr>
+          <tr><td>10.50 - 11.10</td><td>Break for GA and HRC</td></tr>
+          <tr><td>11.10 - 11.30</td><td>Debate topic 2</td></tr>
+          <tr><td>11.30 - 11.55</td><td>Lobbying crisis topic</td></tr>
+          <tr><td>11.55 - 13.20</td><td>Debate crisis topic</td></tr>
+          <tr><td>13.20 - 13.35</td><td>Finish debate topic 2 (closed debate + voting)</td></tr>
+          <tr><td>13.35 - 14.00</td><td>Superlatives</td></tr>
+          <tr><td>14.00 - 15.30</td><td>Lunch period for all delegates</td></tr>
+          <tr><td>15.30 - 16.30</td><td>Closing Ceremony</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">
+      The schedule above is displayed in read-only form for all users. Attendance and participation pages can be viewed by all visitors,
+      while only authenticated chairs and executives can make changes to records.
+    </p>
+  </div>
+</body>
+</html>
