@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6fb;
+      color: #1f2937;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .title-block p {
+      margin: 8px 0 0;
+      color: #4b5563;
+    }
+
+    .button,
+    button {
+      text-decoration: none;
+      background: #2563eb;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 0.98rem;
+    }
+
+    .button.secondary,
+    button.secondary {
+      background: #374151;
+    }
+
+    .button.outline,
+    button.outline {
+      background: white;
+      color: #2563eb;
+      border: 2px solid #2563eb;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: end;
+    }
+
+    .control-card {
+      background: white;
+      border: 1px solid #dbe4f0;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .control-card label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #1f2937;
+    }
+
+    .control-card select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #c7d2e0;
+      font-size: 1rem;
+      box-sizing: border-box;
+      background: white;
+    }
+
+    .summary-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .summary-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .summary-subtitle {
+      margin: 4px 0 0;
+      color: #4b5563;
+    }
+
+    .table-wrap {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid #dbe4f0;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+    }
+
+    th,
+    td {
+      border: 1px solid #c7d2e0;
+      padding: 12px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #6f98dd;
+      color: #111827;
+      font-size: 1rem;
+    }
+
+    td {
+      background: #eef4ff;
+    }
+
+    .country-cell {
+      font-weight: 700;
+    }
+
+    .status-pill {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: 12px 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      box-sizing: border-box;
+      border: 2px solid transparent;
+    }
+
+    .status-present-voting {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #92400e;
+    }
+
+    .status-present {
+      background: #dcfce7;
+      border-color: #22c55e;
+      color: #166534;
+    }
+
+    .status-absent {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #991b1b;
+    }
+
+    .edit-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .status-button {
+      width: 100%;
+      padding: 11px 10px;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      background: white;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, border-width 0.12s ease;
+    }
+
+    .status-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+    }
+
+    .status-button.present_voting {
+      border-color: #f59e0b;
+      color: #92400e;
+      background: #fffbeb;
+    }
+
+    .status-button.present {
+      border-color: #22c55e;
+      color: #166534;
+      background: #f0fdf4;
+    }
+
+    .status-button.absent {
+      border-color: #ef4444;
+      color: #991b1b;
+      background: #fef2f2;
+    }
+
+    .status-button.selected.present_voting {
+      background: #fcd34d;
+      border-width: 3px;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    .status-button.selected.present {
+      background: #86efac;
+      border-width: 3px;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+    }
+
+    .status-button.selected.absent {
+      background: #fca5a5;
+      border-width: 3px;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .message {
+      margin-top: 14px;
+      font-weight: 600;
+      min-height: 24px;
+    }
+
+    .message.error {
+      color: #b91c1c;
+    }
+
+    .message.success {
+      color: #166534;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 760px) {
+      .title-block h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="title-block">
+        <h1>Attendance</h1>
+        <p>Choose a committee and session to view attendance. Log in to edit records.</p>
+      </div>
+
+      <div class="top-links">
+        <a class="button outline" href="{{ url_for('index') }}">Home</a>
+        {% if authenticated %}
+          <a class="button secondary" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="button secondary" href="{{ url_for('login') }}">Chair Login</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control-card">
+        <label for="committee-select">Choose Committee</label>
+        <select id="committee-select"></select>
+      </div>
+
+      <div class="control-card">
+        <label for="session-select">Choose Session</label>
+        <select id="session-select"></select>
+      </div>
+
+      <div class="control-card">
+        <label>Edit Session</label>
+        {% if authenticated %}
+          <button id="edit-button" type="button">Edit Current Session</button>
+        {% else %}
+          <a class="button secondary" href="{{ url_for('login') }}">Login to Edit</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="summary-bar">
+      <div>
+        <h2 class="summary-title"><span id="committee-title">Committee</span> Attendance</h2>
+        <p class="summary-subtitle">Session <span id="session-title">1</span></p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 26%;">Country</th>
+            <th style="width: 25%;">Present and Voting</th>
+            <th style="width: 24%;">Present</th>
+            <th style="width: 25%;">Absent</th>
+          </tr>
+        </thead>
+        <tbody id="attendance-body"></tbody>
+      </table>
+      <div id="message" class="message"></div>
+    </div>
+  </div>
+
+  <script>
+    const committeeSelect = document.getElementById('committee-select');
+    const sessionSelect = document.getElementById('session-select');
+    const committeeTitle = document.getElementById('committee-title');
+    const sessionTitle = document.getElementById('session-title');
+    const attendanceBody = document.getElementById('attendance-body');
+    const messageBox = document.getElementById('message');
+    const editButton = document.getElementById('edit-button');
+
+    let committees = [];
+    let attendanceRows = [];
+    let editing = false;
+
+    function setMessage(text, kind = '') {
+      messageBox.textContent = text;
+      messageBox.className = 'message';
+      if (kind) {
+        messageBox.classList.add(kind);
+      }
+    }
+
+    async function loadCommittees() {
+      const response = await fetch('/api/committees');
+      committees = await response.json();
+
+      committeeSelect.innerHTML = '';
+      committees.forEach((committee) => {
+        const option = document.createElement('option');
+        option.value = committee.committee_code;
+        option.textContent = committee.committee_name;
+        option.dataset.sessions = committee.total_sessions;
+        committeeSelect.appendChild(option);
+      });
+
+      updateSessionOptions();
+      await loadAttendance();
+    }
+
+    function updateSessionOptions() {
+      const selectedOption = committeeSelect.options[committeeSelect.selectedIndex];
+      const totalSessions = Number(selectedOption?.dataset.sessions || 1);
+      const currentValue = sessionSelect.value;
+
+      sessionSelect.innerHTML = '';
+      for (let i = 1; i <= totalSessions; i += 1) {
+        const option = document.createElement('option');
+        option.value = String(i);
+        option.textContent = `Session ${i}`;
+        sessionSelect.appendChild(option);
+      }
+
+      if (currentValue && Number(currentValue) <= totalSessions) {
+        sessionSelect.value = currentValue;
+      }
+    }
+
+    function renderAttendance() {
+      attendanceBody.innerHTML = '';
+      committeeTitle.textContent = committeeSelect.options[committeeSelect.selectedIndex]?.textContent || 'Committee';
+      sessionTitle.textContent = sessionSelect.value || '1';
+
+      attendanceRows.forEach((row) => {
+        const tr = document.createElement('tr');
+
+        const showPresentVoting = !editing && row.status === 'present_voting';
+        const showPresent = !editing && row.status === 'present';
+        const showAbsent = !editing && row.status === 'absent';
+
+        tr.innerHTML = `
+          <td class="country-cell">${row.country_name}</td>
+          <td>
+            <div class="status-pill status-present-voting ${showPresentVoting ? '' : 'hidden'}">Present and Voting</div>
+            <div class="edit-buttons ${editing ? '' : 'hidden'}">
+              <button type="button" class="status-button present_voting ${row.status === 'present_voting' ? 'selected' : ''}" data-person="${row.person_id}" data-status="present_voting">Present and Voting</button>
+            </div>
+          </td>
+          <td>
+            <div class="status-pill status-present ${showPresent ? '' : 'hidden'}">Present</div>
+            <div class="edit-buttons ${editing ? '' : 'hidden'}">
+              <button type="button" class="status-button present ${row.status === 'present' ? 'selected' : ''}" data-person="${row.person_id}" data-status="present">Present</button>
+            </div>
+          </td>
+          <td>
+            <div class="status-pill status-absent ${showAbsent ? '' : 'hidden'}">Absent</div>
+            <div class="edit-buttons ${editing ? '' : 'hidden'}">
+              <button type="button" class="status-button absent ${row.status === 'absent' ? 'selected' : ''}" data-person="${row.person_id}" data-status="absent">Absent</button>
+            </div>
+          </td>
+        `;
+
+        attendanceBody.appendChild(tr);
+      });
+
+      if (editing) {
+        document.querySelectorAll('.status-button').forEach((button) => {
+          button.addEventListener('click', () => {
+            const personId = Number(button.dataset.person);
+            const status = button.dataset.status;
+            const row = attendanceRows.find((item) => item.person_id === personId);
+            if (row) {
+              row.status = status;
+              renderAttendance();
+            }
+          });
+        });
+      }
+    }
+
+    async function loadAttendance() {
+      const committeeCode = committeeSelect.value;
+      const sessionNumber = sessionSelect.value;
+      setMessage('');
+      editing = false;
+      if (editButton) {
+        editButton.textContent = 'Edit Current Session';
+      }
+
+      const response = await fetch(`/api/attendance-data?committee_code=${encodeURIComponent(committeeCode)}&session_number=${encodeURIComponent(sessionNumber)}`);
+      const data = await response.json();
+      attendanceRows = data;
+      renderAttendance();
+    }
+
+    async function saveAttendance() {
+      const payload = {
+        committee_code: committeeSelect.value,
+        session_number: Number(sessionSelect.value),
+        entries: attendanceRows.map((row) => ({
+          person_id: row.person_id,
+          status: row.status,
+        })),
+      };
+
+      const response = await fetch('/api/save-attendance', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        setMessage(data.error || 'Failed to save attendance.', 'error');
+        return false;
+      }
+
+      setMessage('Attendance saved successfully.', 'success');
+      return true;
+    }
+
+    if (editButton) {
+      editButton.addEventListener('click', async () => {
+        if (!editing) {
+          editing = true;
+          editButton.textContent = 'Confirm Changes';
+          renderAttendance();
+          return;
+        }
+
+        const success = await saveAttendance();
+        if (success) {
+          editing = false;
+          editButton.textContent = 'Edit Current Session';
+          await loadAttendance();
+        }
+      });
+    }
+
+    committeeSelect.addEventListener('change', async () => {
+      updateSessionOptions();
+      await loadAttendance();
+    });
+
+    sessionSelect.addEventListener('change', loadAttendance);
+
+    loadCommittees();
+  </script>
+</body>
+</html>
