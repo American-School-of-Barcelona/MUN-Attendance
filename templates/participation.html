@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +9,7 @@
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      background: #f4f6fb;
+      background: #d9e4f2;
       color: #1f2937;
     }
 
@@ -44,7 +42,7 @@
     .button,
     button {
       text-decoration: none;
-      background: #2563eb;
+      background: #2f5f94;
       color: white;
       padding: 12px 18px;
       border-radius: 10px;
@@ -57,14 +55,14 @@
 
     .button.secondary,
     button.secondary {
-      background: #374151;
+      background: #071a33;
     }
 
     .button.outline,
     button.outline {
       background: white;
-      color: #2563eb;
-      border: 2px solid #2563eb;
+      color: #071a33;
+      border: 2px solid #071a33;
     }
 
     .top-links {
@@ -84,7 +82,7 @@
     .committee-selector-card,
     .insert-shell {
       background: white;
-      border: 1px solid #dbe4f0;
+      border: 1px solid #b8c8dc;
       border-radius: 14px;
       padding: 18px;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
@@ -110,7 +108,7 @@
       width: 100%;
       padding: 12px;
       border-radius: 10px;
-      border: 1px solid #c7d2e0;
+      border: 1px solid #b8c8dc;
       font-size: 1rem;
       box-sizing: border-box;
       background: white;
@@ -133,7 +131,7 @@
 
     .panel {
       background: white;
-      border: 1px solid #dbe4f0;
+      border: 1px solid #b8c8dc;
       border-radius: 14px;
       padding: 18px;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
@@ -182,20 +180,20 @@
 
     th,
     td {
-      border: 1px solid #c7d2e0;
+      border: 1px solid #b8c8dc;
       padding: 12px 10px;
       text-align: left;
       vertical-align: middle;
     }
 
     th {
-      background: #6f98dd;
-      color: #111827;
+      background: #2f5f94;
+      color: white;
       font-size: 1rem;
     }
 
     td {
-      background: #eef4ff;
+      background: #dfe8f4;
     }
 
     .recent-table th:nth-child(1),
@@ -357,6 +355,7 @@
         <select id="committee-select"></select>
       </div>
 
+      {% if authenticated %}
       <div class="insert-shell">
         <div>
           <label for="delegation-select">Delegation</label>
@@ -369,13 +368,10 @@
         </div>
 
         <div class="insert-actions">
-          {% if authenticated %}
-            <button id="add-button" type="button">Add</button>
-          {% else %}
-            <a class="button secondary" href="{{ url_for('login') }}">Login to Add</a>
-          {% endif %}
+          <button id="add-button" type="button">Add</button>
         </div>
       </div>
+      {% endif %}
     </div>
 
     <div class="content-grid">
