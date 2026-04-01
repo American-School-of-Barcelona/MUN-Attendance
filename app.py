@@ -11,6 +11,7 @@ from flask import Flask, jsonify, redirect, render_template, request, session, u
 BASE_DIR = Path(__file__).resolve().parent
 DB_PATH = BASE_DIR / "database" / "mun.db"
 CHAIR_PASSWORD = "MUNPassword2026"
+ADMIN_PASSWORD = "MUNAdmin2026"
 SECRET_KEY = "9f3a8c2d7b4e1f6a9c0d2b3e4f5a6c7d"
 
 app = Flask(__name__)
@@ -29,7 +30,17 @@ def rows_to_dicts(rows: list[sqlite3.Row]) -> list[dict[str, Any]]:
 
 
 def is_authenticated() -> bool:
-    return bool(session.get("authenticated", False))
+    return session.get("role") in {"chair", "admin"}
+
+
+def is_admin() -> bool:
+    return session.get("role") == "admin"
+
+
+def require_admin() -> tuple[dict[str, str], int] | None:
+    if not is_admin():
+        return {"error": "Admin access required."}, 403
+    return None
 
 
 def require_auth() -> tuple[dict[str, str], int] | None:
@@ -40,7 +51,11 @@ def require_auth() -> tuple[dict[str, str], int] | None:
 
 @app.route("/")
 def index() -> str:
-    return render_template("index.html", authenticated=is_authenticated())
+    return render_template(
+        "index.html",
+        authenticated=is_authenticated(),
+        is_admin=is_admin(),
+    )
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -48,14 +63,41 @@ def login() -> str:
     if request.method == "POST":
         password = request.form.get("password", "")
         if password == CHAIR_PASSWORD:
-            session["authenticated"] = True
+            session["role"] = "chair"
             return redirect(url_for("index"))
         return render_template(
             "login.html",
-            error="Invalid password.",
+            error="Invalid chair password.",
             authenticated=is_authenticated(),
+            is_admin=is_admin(),
         )
-    return render_template("login.html", error=None, authenticated=is_authenticated())
+    return render_template(
+        "login.html",
+        error=None,
+        authenticated=is_authenticated(),
+        is_admin=is_admin(),
+    )
+
+
+@app.route("/admin-login", methods=["GET", "POST"])
+def admin_login() -> str:
+    if request.method == "POST":
+        password = request.form.get("password", "")
+        if password == ADMIN_PASSWORD:
+            session["role"] = "admin"
+            return redirect(url_for("admin_page"))
+        return render_template(
+            "admin_login.html",
+            error="Invalid admin password.",
+            authenticated=is_authenticated(),
+            is_admin=is_admin(),
+        )
+    return render_template(
+        "admin_login.html",
+        error=None,
+        authenticated=is_authenticated(),
+        is_admin=is_admin(),
+    )
 
 
 @app.route("/logout")
@@ -66,12 +108,31 @@ def logout() -> Any:
 
 @app.route("/attendance")
 def attendance_page() -> str:
-    return render_template("attendance.html", authenticated=is_authenticated())
+    return render_template(
+        "attendance.html",
+        authenticated=is_authenticated(),
+        is_admin=is_admin(),
+    )
 
 
 @app.route("/participation")
 def participation_page() -> str:
-    return render_template("participation.html", authenticated=is_authenticated())
+    return render_template(
+        "participation.html",
+        authenticated=is_authenticated(),
+        is_admin=is_admin(),
+    )
+
+
+@app.route("/admin")
+def admin_page() -> str:
+    if not is_admin():
+        return redirect(url_for("admin_login"))
+    return render_template(
+        "admin.html",
+        authenticated=is_authenticated(),
+        is_admin=is_admin(),
+    )
 
 
 @app.route("/api/committees")
@@ -100,6 +161,58 @@ def api_conference_schedule() -> Any:
     ).fetchall()
     conn.close()
     return jsonify(rows_to_dicts(rows))
+
+
+# Admin filter options API
+@app.route("/api/admin-filters")
+def api_admin_filters() -> Any:
+    admin_error = require_admin()
+    if admin_error:
+        return jsonify(admin_error[0]), admin_error[1]
+
+    conn = get_db_connection()
+
+    schools = conn.execute(
+        """
+        SELECT school_name
+        FROM schools
+        ORDER BY school_name ASC;
+        """
+    ).fetchall()
+
+    committees = conn.execute(
+        """
+        SELECT committee_code, committee_name
+        FROM committees
+        ORDER BY committee_name ASC;
+        """
+    ).fetchall()
+
+    countries = conn.execute(
+        """
+        SELECT country_name
+        FROM countries
+        ORDER BY country_name ASC;
+        """
+    ).fetchall()
+
+    roles = conn.execute(
+        """
+        SELECT DISTINCT role
+        FROM people
+        ORDER BY role ASC;
+        """
+    ).fetchall()
+
+    conn.close()
+    return jsonify(
+        {
+            "schools": rows_to_dicts(schools),
+            "committees": rows_to_dicts(committees),
+            "countries": rows_to_dicts(countries),
+            "roles": rows_to_dicts(roles),
+        }
+    )
 
 
 @app.route("/api/attendance-data")
@@ -359,6 +472,62 @@ def api_delete_participation() -> Any:
     conn.close()
 
     return jsonify({"success": True})
+
+
+
+# Admin search API
+@app.route("/api/admin-search")
+def api_admin_search() -> Any:
+    admin_error = require_admin()
+    if admin_error:
+        return jsonify(admin_error[0]), admin_error[1]
+
+    school_name = request.args.get("school_name", "").strip()
+    committee_code = request.args.get("committee_code", "").strip()
+    country_name = request.args.get("country_name", "").strip()
+    role = request.args.get("role", "").strip()
+
+    query = """
+        SELECT DISTINCT
+          p.first_name,
+          p.last_name,
+          p.email,
+          s.school_name,
+          p.role,
+          cm.committee_name,
+          co.country_name
+        FROM people p
+        LEFT JOIN schools s ON p.school_id = s.school_id
+        LEFT JOIN delegate_assignments da ON p.person_id = da.person_id
+        LEFT JOIN committees cm ON da.committee_id = cm.committee_id
+        LEFT JOIN countries co ON da.country_id = co.country_id
+        WHERE 1=1
+    """
+
+    params: list[Any] = []
+
+    if school_name:
+        query += " AND s.school_name = ?"
+        params.append(school_name)
+
+    if committee_code:
+        query += " AND cm.committee_code = ?"
+        params.append(committee_code)
+
+    if country_name:
+        query += " AND co.country_name = ?"
+        params.append(country_name)
+
+    if role:
+        query += " AND p.role = ?"
+        params.append(role)
+
+    query += " ORDER BY s.school_name ASC, p.last_name ASC, p.first_name ASC;"
+
+    conn = get_db_connection()
+    rows = conn.execute(query, params).fetchall()
+    conn.close()
+    return jsonify(rows_to_dicts(rows))
 
 
 if __name__ == "__main__":

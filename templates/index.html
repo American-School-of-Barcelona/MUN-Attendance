@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,18 +160,18 @@
   <div class="page">
     <div class="topbar">
       <div class="title-block">
-        <h1>MUN Conference Attendance and Participation System</h1>
-        <p>
-          This website allows users to view committee attendance and participation data throughout the conference.
-          Editing features are restricted to authorised chairs and executives.
-        </p>
+        <h1>Model United Nations Conference</h1>
       </div>
 
       <div class="auth-links">
         {% if authenticated %}
           <a class="button secondary" href="{{ url_for('logout') }}">Logout</a>
+          {% if is_admin %}
+            <a class="button outline" href="{{ url_for('admin_page') }}">Admin Directory</a>
+          {% endif %}
         {% else %}
           <a class="button secondary" href="{{ url_for('login') }}">Chair Login</a>
+          <a class="button secondary" href="{{ url_for('admin_login') }}">Admin Login</a>
         {% endif %}
       </div>
     </div>
@@ -193,18 +191,6 @@
           View recent participation, call priority, and, if authenticated, record participation entries.
         </p>
         <a class="button" href="{{ url_for('participation_page') }}">Open Participation</a>
-      </div>
-
-      <div class="nav-card">
-        <h2>Access</h2>
-        <p>
-          All visitors can view information in read-only mode. Chairs and executives can log in to access editing tools.
-        </p>
-        {% if authenticated %}
-          <a class="button outline" href="{{ url_for('logout') }}">You are Logged In</a>
-        {% else %}
-          <a class="button outline" href="{{ url_for('login') }}">Login to Edit</a>
-        {% endif %}
       </div>
     </div>
 
@@ -286,7 +272,7 @@
 
     <p class="note">
       The schedule above is displayed in read-only form for all users. Attendance and participation pages can be viewed by all visitors,
-      while only authenticated chairs and executives can make changes to records.
+      while only authenticated chairs, executives, and the host school admin can make changes or access restricted tools.
     </p>
   </div>
 </body>

@@ -1,0 +1,130 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f6fb; }
+    header { background:#0f172a; color:#fff; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; }
+    .container { padding:20px; }
+
+    .filters { display:grid; grid-template-columns: repeat(5, 1fr) 140px; gap:12px; margin-bottom:16px; }
+    .filters select, .filters button { padding:10px; border-radius:8px; border:1px solid #c7d2e0; }
+    .filters button { background:#2563eb; color:#fff; border:none; font-weight:600; cursor:pointer; }
+    .filters button:hover { background:#1e4fc9; }
+
+    .table-wrap { background:#fff; border-radius:12px; padding:10px; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:10px 12px; border-bottom:1px solid #e5e7eb; text-align:left; }
+    th { background:#eef2ff; }
+    tr:hover { background:#f9fafb; }
+
+    .meta { color:#475569; font-size:0.9rem; margin-bottom:8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Admin Directory</h2>
+    <a href="{{ url_for('index') }}" style="color:#93c5fd; text-decoration:none;">Home</a>
+  </header>
+
+  <div class="container">
+    <div class="filters">
+      <select id="school"></select>
+      <select id="committee"></select>
+      <select id="country"></select>
+      <select id="role"></select>
+      <div></div>
+      <button id="search">Search</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="meta" id="count"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>School</th>
+            <th>Role</th>
+            <th>Committee</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody id="results"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const schoolSel = document.getElementById('school');
+    const committeeSel = document.getElementById('committee');
+    const countrySel = document.getElementById('country');
+    const roleSel = document.getElementById('role');
+    const results = document.getElementById('results');
+    const count = document.getElementById('count');
+
+    function addDefault(select, label, valueKey, textKey, items) {
+      select.innerHTML = '';
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = `All ${label}`;
+      select.appendChild(opt);
+      items.forEach(i => {
+        const o = document.createElement('option');
+        o.value = i[valueKey];
+        o.textContent = i[textKey];
+        select.appendChild(o);
+      });
+    }
+
+    async function loadFilters() {
+      const res = await fetch('/api/admin-filters');
+      const data = await res.json();
+      addDefault(schoolSel, 'Schools', 'school_name', 'school_name', data.schools);
+      addDefault(committeeSel, 'Committees', 'committee_code', 'committee_name', data.committees);
+      addDefault(countrySel, 'Countries', 'country_name', 'country_name', data.countries);
+      addDefault(roleSel, 'Roles', 'role', 'role', data.roles);
+    }
+
+    function render(rows) {
+      results.innerHTML = '';
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${r.first_name || ''}</td>
+          <td>${r.last_name || ''}</td>
+          <td>${r.email || ''}</td>
+          <td>${r.school_name || ''}</td>
+          <td>${r.role || ''}</td>
+          <td>${r.committee_name || ''}</td>
+          <td>${r.country_name || ''}</td>
+        `;
+        results.appendChild(tr);
+      });
+      count.textContent = `${rows.length} result(s)`;
+    }
+
+    async function search() {
+      const params = new URLSearchParams({
+        school_name: schoolSel.value,
+        committee_code: committeeSel.value,
+        country_name: countrySel.value,
+        role: roleSel.value
+      });
+      const res = await fetch(`/api/admin-search?${params.toString()}`);
+      const data = await res.json();
+      render(data);
+    }
+
+    document.getElementById('search').addEventListener('click', search);
+
+    loadFilters().then(() => search());
+  </script>
+</body>
+</html>
