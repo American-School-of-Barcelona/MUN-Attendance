@@ -196,20 +196,30 @@
       background: #dfe8f4;
     }
 
-    .recent-table th:nth-child(1),
-    .recent-table td:nth-child(1) {
+    .recent-table.authenticated th:nth-child(1),
+    .recent-table.authenticated td:nth-child(1) {
       width: 48%;
     }
 
-    .recent-table th:nth-child(2),
-    .recent-table td:nth-child(2) {
+    .recent-table.authenticated th:nth-child(2),
+    .recent-table.authenticated td:nth-child(2) {
       width: 34%;
     }
 
-    .recent-table th:nth-child(3),
-    .recent-table td:nth-child(3) {
+    .recent-table.authenticated th:nth-child(3),
+    .recent-table.authenticated td:nth-child(3) {
       width: 18%;
       text-align: center;
+    }
+
+    .recent-table.public th:nth-child(1),
+    .recent-table.public td:nth-child(1) {
+      width: 58%;
+    }
+
+    .recent-table.public th:nth-child(2),
+    .recent-table.public td:nth-child(2) {
+      width: 42%;
     }
 
     .priority-table th:nth-child(1),
@@ -378,12 +388,14 @@
       <section class="panel compact-panel">
         <h2>10 Recent Speakers</h2>
         <div id="message" class="message"></div>
-        <table class="recent-table">
+        <table class="recent-table {% if authenticated %}authenticated{% else %}public{% endif %}">
           <thead>
             <tr>
               <th>Delegation</th>
               <th>Participation Type</th>
-              <th>Remove</th>
+              {% if authenticated %}
+                <th>Remove</th>
+              {% endif %}
             </tr>
           </thead>
           <tbody id="recent-body"></tbody>
@@ -452,6 +464,9 @@
     }
 
     function renderDelegations() {
+      if (!delegationSelect) {
+        return;
+      }
       delegationSelect.innerHTML = '';
       currentData.delegations.forEach((delegation) => {
         const option = document.createElement('option');
@@ -462,6 +477,9 @@
     }
 
     function renderParticipationTypes() {
+      if (!typeSelect) {
+        return;
+      }
       typeSelect.innerHTML = '';
       currentData.participation_types.forEach((type) => {
         const option = document.createElement('option');
@@ -487,13 +505,11 @@
         tr.innerHTML = `
           <td>${entry.delegation}</td>
           <td>${entry.type_name}</td>
+          {% if authenticated %}
           <td>
-            {% if authenticated %}
-              <button type="button" class="delete-button" data-id="${entry.participation_id}" aria-label="Delete participation">×</button>
-            {% else %}
-              <span style="color:#6b7280;">-</span>
-            {% endif %}
+            <button type="button" class="delete-button" data-id="${entry.participation_id}" aria-label="Delete participation">×</button>
           </td>
+          {% endif %}
         `;
         recentBody.appendChild(tr);
       });
